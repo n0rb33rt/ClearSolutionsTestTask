@@ -1,0 +1,38 @@
+services:
+  postgres:
+    container_name: clear-solutions-db
+    image: postgres
+    environment:
+      POSTGRES_USER: clearsolutions
+      POSTGRES_PASSWORD: clearsolutions
+    volumes:
+      - clearsolutions-db:/var/lib/postgresql/data
+    networks:
+      - clear-solutions-network
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "8081:80"
+    networks:
+      - clear-solutions-network
+    restart: unless-stopped
+
+
+networks:
+  clear-solutions-network:
+    driver: bridge
+
+volumes:
+  clearsolutions-db:
+  pgadmin:
