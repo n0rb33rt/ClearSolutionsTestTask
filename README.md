@@ -32,7 +32,6 @@ To run the application:
 2. Clone the repository and navigate to the project directory.
 3. Run the command: `mvn spring-boot:run`
 4. Access the application through ([http://localhost:8080/](http://localhost:8080/swagger-ui/index.html))
-5. Access to Open API Documentation through ([http://localhost:8080/](http://localhost:8080/swagger-ui/index.html))
 
 ## Testing
 The application includes a suite of unit and integration tests to ensure the API behaves as expected. Tests are run using Maven with the command: `mvn test`
