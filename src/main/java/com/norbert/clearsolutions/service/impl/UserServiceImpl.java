@@ -87,27 +87,26 @@ public class UserServiceImpl implements IUserService {
 
     private void validateUserDetails(UserUpdateDTO userDTO, User user) {
         if (!isUserAdult(userDTO.getBirthDate())) {
-            throw new BadRequestException("Invalid birth date");
+            throw new BadRequestException("Invalid birth date. You should have 18 years old");
         }
 
         String email = userDTO.getEmail();
         if (existsByEmail(email) && !email.equals(user.getEmail())) {
-            throw new BadRequestException("The email is already taken");
+            throw new BadRequestException("The email is already taken.");
         }
 
         String phone = userDTO.getPhone();
         if (phone != null && existsByPhone(phone) && !phone.equals(user.getPhone())) {
-            throw new BadRequestException("The phone is already used");
+            throw new BadRequestException("The phone is already taken.");
         }
     }
-
 
     @Override
     public void deleteUser(String userIdStr) {
         Long id = parseToLong(userIdStr);
 
         if(!existsById(id)){
-            throw new UserNotFoundException("User not found with id: " + id);
+            throw new UserNotFoundException("User is not found with id: " + id);
         }
         userRepository.deleteById(id);
     }
@@ -116,7 +115,7 @@ public class UserServiceImpl implements IUserService {
         try {
             return Long.parseLong(value);
         } catch (NumberFormatException e) {
-            throw new BadRequestException("Invalid number format: " + value);
+            throw new BadRequestException("Incorrect format for the number." + value);
         }
     }
 
@@ -127,7 +126,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<UserDTO> searchByBirthDateRange(LocalDate from, LocalDate to) {
         if (from.isAfter(to)) {
-            throw new BadRequestException("Invalid birth date range");
+            throw new BadRequestException("Invalid range for birth dates.");
         }
         return userRepository
                 .findAll()

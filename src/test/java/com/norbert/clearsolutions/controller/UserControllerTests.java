@@ -100,8 +100,6 @@ class UserControllerTests {
     }
 
 
-
-
     @Test
     void create_ValidRequest_ReturnsCreatedId() throws Exception {
         Mockito.when(userService.createUser(Mockito.any(UserDTO.class))).thenReturn(1L);

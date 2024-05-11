@@ -15,4 +15,7 @@ spring:
 constants:
   min-user-age: 18
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
 
